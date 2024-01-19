@@ -154,7 +154,7 @@ class ForegroundService : Service(), MethodChannel.MethodCallHandler {
 
 	override fun onTaskRemoved(rootIntent: Intent?) {
     	super.onTaskRemoved(rootIntent)
-	Log.i(TAG, "The app is quitted from background.")
+	// Log.i(TAG, "The app is quitted from background.")
 	stopForegroundTask()
 	stopForegroundService()
 	// unregisterBroadcastReceiver()
