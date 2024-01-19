@@ -158,7 +158,7 @@ class ForegroundService : Service(), MethodChannel.MethodCallHandler {
 	stopForegroundTask()
 	stopForegroundService()
 	// unregisterBroadcastReceiver()
-	setRestartAlarm()
+	// setRestartAlarm()
 	}
 	override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
 		when (call.method) {
