@@ -152,6 +152,33 @@ class ForegroundService : Service(), MethodChannel.MethodCallHandler {
 		}
 	}
 
+	override fun onTaskRemoved(rootIntent: Intent?) {
+    	super.onTaskRemoved(rootIntent)
+	scheduleRestart(getApplicationContext())
+	}
+
+	private fun scheduleRestart(context: Context) {
+		val restartIntent = Intent(context, RestartReceiver::class.java)
+		// restartIntent.action = "com.pravera.flutter_foreground_task.RESTART_SERVICE"
+	
+		val pendingIntent = PendingIntent.getBroadcast(
+			context,
+			0,
+			restartIntent,
+			PendingIntent.FLAG_ONE_SHOT
+		)
+	
+		val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
+	
+		if (alarmManager != null) {
+			alarmManager.setExact(
+				AlarmManager.ELAPSED_REALTIME_WAKEUP,
+				SystemClock.elapsedRealtime() + 3000, // 3 seconds
+				pendingIntent
+			)
+		}
+	}
+
 	override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
 		when (call.method) {
 			"initialize" -> startForegroundTask()
