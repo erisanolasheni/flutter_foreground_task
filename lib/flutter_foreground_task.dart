@@ -39,6 +39,10 @@ abstract class TaskHandler {
   /// Called when the task is destroyed.
   void onDestroy(DateTime timestamp, SendPort? sendPort);
 
+
+/// Called everytime task is removed.
+  void onTaskRemoved(DateTime timestamp, SendPort? sendPort);
+
   /// Called when the notification button on the Android platform is pressed.
   void onNotificationButtonPressed(String id) {}
 
@@ -270,6 +274,9 @@ class FlutterForegroundTask {
           break;
         case 'onDestroy':
           handler.onDestroy(timestamp, sendPort);
+          break;
+        case 'onTaskRemoved':
+          handler.onTaskRemoved(timestamp, sendPort);
           break;
         case 'onNotificationButtonPressed':
           final String id = call.arguments.toString();
